@@ -58,6 +58,9 @@ module.exports = app
   // Serve our api - ./api also requires in ../db, which syncs with our database
   .use('/api', require('./api'))
 
+    // Send index.html for anything else.
+  .use((_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
+
   .use((req, res, next) => {
 
     // Website you wish to allow to connect
