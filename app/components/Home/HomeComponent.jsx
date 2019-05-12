@@ -6,7 +6,7 @@ import WeatherWidget               from 'react-weather-display'
 import moment                      from 'moment'
 import { Spinner}                  from 'react-bootstrap'
 
-import { getWindspeedConfig, getWindGustConfig, getWindDirectionConfig, getCloudCoverConfig, getHumidityConfig, getPrecipConfig, degToCompass, getConditionsLogo } from './utilities'
+import { getWindspeedConfig, getWindGustConfig, getWindDirectionConfig, getCloudCoverConfig, getHumidityConfig, getPrecipConfig, degToCompass, getConditionsLogo } from './Utilities'
 HighchartsMore(ReactHighcharts.Highcharts);
 
 
