@@ -21,10 +21,10 @@ const users = seed(User, {
     name: 'So many names',
     password: '1234',
   },
-  barack: {
-    name: 'Barack Obama',
-    email: 'barack@example.gov',
-    password: '1234'
+  alan: {
+    name: 'Alan Campbell',
+    email: 'alancampbell4444@gmail.com',
+    password: 'password'
   },
 })
 
@@ -45,8 +45,8 @@ const favorites = seed(Favorite,
   ({users, things}) => ({
     // The easiest way to seed associations seems to be to just create rows
     // in the join table.
-    'obama loves surfing': {
-      user_id: users.barack.id,    // users.barack is an instance of the User model
+    'alan loves surfing': {
+      user_id: users.alan.id,    // users.alan is an instance of the User model
                                    // that we created in the user seed above.
                                    // The seed function wires the promises so that it'll
                                    // have been created already.
@@ -57,7 +57,7 @@ const favorites = seed(Favorite,
       thing_id: things.smiting.id
     },
     'obama loves puppies': {
-      user_id: users.barack.id,
+      user_id: users.alan.id,
       thing_id: things.puppies.id
     },
     'god loves puppies': {

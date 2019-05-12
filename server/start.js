@@ -3,7 +3,7 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
-const {resolve} = require('path')
+const {resolve, join} = require('path')
 const passport = require('passport')
 const PrettyError = require('pretty-error')
 const finalHandler = require('finalhandler')
@@ -49,10 +49,33 @@ module.exports = app
   .use(passport.session())
 
   // Serve static files from ../public
+  .use('/public', express.static(resolve(__dirname, '..', 'public')))
   .use(express.static(resolve(__dirname, '..', 'public')))
+
+  // BootStrap
+  .use('/bootstrap', express.static(join(__dirname, '../node_modules/bootstrap/dist')))
 
   // Serve our api - ./api also requires in ../db, which syncs with our database
   .use('/api', require('./api'))
+
+  .use((req, res, next) => {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+  })
 
   // any requests with an extension (.js, .css, etc.) turn into 404
   .use((req, res, next) => {

@@ -7,35 +7,51 @@
  */
 import 'babel-polyfill'
 
-import React from 'react'
+import React                                          from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
-import {render} from 'react-dom'
-import {connect, Provider} from 'react-redux'
+import {render}                                       from 'react-dom'
+import {connect, Provider}                            from 'react-redux'
 
-import store from './store'
-import Jokes from './components/Jokes'
-import Login from './components/Login'
-import WhoAmI from './components/WhoAmI'
-import NotFound from './components/NotFound'
+import store                                          from './store'
 
-const ExampleApp = connect(
+import Navbar                                         from './components/Navbar'
+import Home                                           from './components/Home'
+import WeatherLog                                     from './components/WeatherLog'
+
+import Login                                          from './components/Login'
+import WhoAmI                                         from './components/WhoAmI'
+import NotFound                                       from './components/NotFound'
+
+import { whoami }                                     from './reducers/auth'
+
+const parasailLogApp = connect(
   ({ auth }) => ({ user: auth })
 )(
   ({ user, children }) =>
     <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav>
+      <Navbar/>
       {children}
     </div>
 )
 
+const Authorize = () => {
+  store.dispatch(whoami())
+  .then(() => {
+    const auth = store.getState().auth
+    if(!auth){
+      browserHistory.push('/home')
+    }
+  })
+
+}
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
+      <Route path="/" component={parasailLogApp}>
+        <IndexRedirect to="/home" />
+        <Route path="/home" component={Home} />
+        <Route path="/weather-log" component={WeatherLog} onEnter={Authorize}/>
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
