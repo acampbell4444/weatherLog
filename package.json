@@ -4,7 +4,7 @@
   "description": "Parasailing Log Book App",
   "main": "index.js",
   "engines": {
-    "node": ">= 7.0.0"
+    "node": "10.11.0"
   },
   "scripts": {
     "dev": "node dev",
