@@ -25,6 +25,11 @@ const users = seed(User, {
     name: 'Alan Campbell',
     email: 'alancampbell4444@gmail.com',
     password: 'password'
+  },  
+  bob: {
+    name: 'Bob Hassett',
+    email: 'bob@aws.com',
+    password: 'password'
   },
 })
 
